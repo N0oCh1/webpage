@@ -5,6 +5,7 @@ import { formSchema } from '../types';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 function App() {
+  // todo: Replace to use backend validation
   const ACCESS_CODE = "ABCD";
 
   const {
