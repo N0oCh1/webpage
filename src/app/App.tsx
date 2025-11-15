@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import './App.css'
-import type { FormData } from './types';
-import { formSchema } from './types';
+import type { FormData } from '../types';
+import { formSchema } from '../types';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 function App() {
