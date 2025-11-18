@@ -5,6 +5,7 @@ import { RouterProvider } from "react-router/dom";
 import './index.css'
 import App from './app/page.tsx'
 import Dashboard from './app/dashboard/page.tsx';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,12 @@ const router = createBrowserRouter([
     element: <Dashboard />
   }
 ]);
+const queryClient = new QueryClient();
 
 createRoot(document.getElementById('root')!).render(
-  <RouterProvider router={router} />,
+  <>
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>
+  </>
 )

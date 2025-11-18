@@ -1,32 +1,20 @@
-import { useState } from "react";
+import AgregarEnchufe from "../../components/AgregarEnchufe";
+import EnchufeCarta from "../../components/EnchufeCarta";
 
 export default function Dashboard() {
-
-  const [switchState, setSwitch] = useState<boolean>(false);
-
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-400">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-linear-to-bl from-indigo-800 via-purple-800 to-pink-800">
       <h1 className="text-4xl font-bold mb-6 text-black">Bienvenido al Dashboard</h1>
       <p className="text-lg text-gray-700">Has accedido correctamente al área protegida de la aplicación.</p>
-      <button onClick={() => setSwitch(!switchState)}
-        className={`${switchState ? "bg-green-700" : "bg-red-700"} text-white px-4 py-2 rounded mt-6 ${switchState ? "hover:bg-green-600" : "hover:bg-red-600"} transition-colors`}
+      <div 
+        className="flex flex-col gap-2 w-full"
       >
-        {switchState ? "Encendido" : "Apagado"}
-      </button>
-      <div
-        className="flex flex-col gap-2 bg-gray-600 text-white p-4 rounded mt-6"
-      >
-        <span
-          className="text-left"
-        >
-          Tiempo en uso: 2 horas
-        </span>
-        <span
-          className="text-left"
-        >
-          Consumo: 150W
-        </span>
+        <EnchufeCarta codigo="2B09" />
+        <EnchufeCarta codigo="31D1" />
+        <EnchufeCarta codigo="C801" />
+        <AgregarEnchufe />
       </div>
+
     </div>
   );
 }
