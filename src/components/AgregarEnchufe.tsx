@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 const AgregarEnchufe = () => {
   const [agregar, setAgregar] = useState(false);
-  const [code, setCode] = useState<string[]>(JSON.parse(localStorage.getItem("code") || "[]"));
+  const [_, setCode] = useState<string[]>(JSON.parse(localStorage.getItem("code") || "[]"));
   const {control, handleSubmit, formState:{errors}} = useForm<FormData>(
     {resolver: zodResolver(formSchema)}
   );
