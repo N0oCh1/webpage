@@ -1,7 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
-    const apiUrl = import.meta.env.ApiUrl || 'http://anthonyr-001-site1.stempurl.com/Enchufe_Api/Enchufe';
+    const apiUrl = process.env.VITE_ApiUrl || 'http://anthonyr-001-site1.stempurl.com/Enchufe_Api/Enchufe';
     const body = req.body;
     try {
         const response = await fetch(`${apiUrl}/updEstado`, {
