@@ -2,7 +2,6 @@ import type { EnchufeData } from "../types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export default function useApi(codigo: string) {
-  const apiUrl = import.meta.env.ApiUrl || 'http://anthonyr-001-site1.stempurl.com/Enchufe_Api/Enchufe';
   if (!codigo) {
     return { data: null, isLoading: false };
   }
@@ -10,7 +9,7 @@ export default function useApi(codigo: string) {
     queryKey: ['enchufe', codigo],
     queryFn: async () => {
       try {
-        const response = await fetch(`${apiUrl}/obtener/${codigo}`, {
+        const response = await fetch(`/api/enchufe?id=${codigo}`, {
           method: 'GET',
         });
         if (!response.ok) {
@@ -29,7 +28,7 @@ export default function useApi(codigo: string) {
       mutationKey: ['updateEnchufe', codigo],
       mutationFn: async () => {
         try {
-            await fetch(`${apiUrl}/updEstado`, {
+            await fetch(`/api/estado`, {
             method: `PATCH`,
             headers: {
               'Content-Type': 'application/json',
@@ -55,7 +54,7 @@ export default function useApi(codigo: string) {
       mutationKey: ['updateNombre', codigo],
       mutationFn: async (nuevoNombre: string) => {
         try {
-            await fetch(`${apiUrl}/updNombre`, {
+            await fetch(`/api/nombre`, {
             method: `PATCH`,
             headers: {
               'Content-Type': 'application/json',
