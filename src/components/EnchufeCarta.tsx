@@ -21,7 +21,7 @@ const EnchufeCarta = ({ codigo }: EnchufeCartaProps) => {
   }
 
   return (
-    <div className="flex flex-col w-full min-h-16 py-6 px-6 rounded-2xl  bg-[#bbbbbb4d] space-y-4">
+    <div className="flex flex-col w-full min-w-[500px] min-h-16 py-6 px-6 rounded-2xl  bg-[#bbbbbb4d] space-y-4">
       {isLoading ? (
         <Fallback />
       ) : error ? (
