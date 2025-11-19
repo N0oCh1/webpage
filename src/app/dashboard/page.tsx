@@ -2,16 +2,17 @@ import AgregarEnchufe from "../../components/AgregarEnchufe";
 import EnchufeCarta from "../../components/EnchufeCarta";
 
 export default function Dashboard() {
+  const code :string[] = JSON.parse(localStorage.getItem("code") || "[]");
+  
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-linear-to-bl from-indigo-800 via-purple-800 to-pink-800">
-      <h1 className="text-4xl font-bold mb-6 text-black">Bienvenido al Dashboard</h1>
-      <p className="text-lg text-gray-700">Has accedido correctamente al área protegida de la aplicación.</p>
+    <div className=" bg-linear-to-bl from-indigo-800 via-purple-800 to-pink-800 w-full h-screen flex justify-center items-center">
       <div 
-        className="flex flex-col gap-2 w-full"
+        className="flex flex-col gap-2 w-1/2 justify-center items-center"
       >
-        <EnchufeCarta codigo="2B09" />
-        <EnchufeCarta codigo="31D1" />
-        <EnchufeCarta codigo="C801" />
+        {code.length === 0 && (
+          <p className="text-white text-2xl mb-4">No hay enchufes agregados. ¡Agrega uno para comenzar!</p>
+        )}
+        {code.map((codigo)=>(<EnchufeCarta key={codigo} codigo={codigo} />))}
         <AgregarEnchufe />
       </div>
 

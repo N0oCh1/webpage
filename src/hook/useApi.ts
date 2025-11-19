@@ -2,7 +2,7 @@ import type { EnchufeData } from "../types";
 import { useMutation, useQuery } from "@tanstack/react-query";
 
 export default function useApi(codigo: string) {
-  const apiUrl = import.meta.env.ApiUrl || 'http://localhost:5282/Enchufe_Api/Enchufe';
+  const apiUrl = import.meta.env.ApiUrl || 'http://anthonyr-001-site1.stempurl.com/Enchufe_Api/Enchufe';
   if (!codigo) {
     return { data: null, isLoading: false };
   }

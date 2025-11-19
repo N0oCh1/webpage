@@ -5,6 +5,11 @@ export const formSchema = z.object({
 });
 export type FormData = z.infer<typeof formSchema>;
 
+export const EnchufeCode = z.object({
+  code: z.array(z.string()),
+});
+export type EnchufeCodeType = z.infer<typeof EnchufeCode>;
+
 export const enchufeSchema = z.object({
   codigo: z.number(),
   mensaje: z.string(),

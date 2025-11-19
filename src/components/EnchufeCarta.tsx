@@ -3,6 +3,7 @@ import Fallback from "./Fallback";
 import CampoEditable from "./CampoEditable";
 import { FaPowerOff } from "react-icons/fa";
 import { MdPowerOff } from "react-icons/md";
+import BotonBorrar from "./BotonBorrar";
 
 interface EnchufeCartaProps {
   codigo: string;
@@ -12,16 +13,24 @@ const EnchufeCarta = ({ codigo }: EnchufeCartaProps) => {
   if (!codigo) return null;
   const { data, isLoading, error, botonEncenderApagar } = useApi(codigo);
 	
+  function BorrarEchufe () {
+    const codes :string[] = JSON.parse(localStorage.getItem("code") || "[]");
+    const nuevosCodes = codes.filter(c => c !== codigo);
+    localStorage.setItem("code", JSON.stringify(nuevosCodes));
+    window.location.reload();
+  }
+
   return (
-    <div className="flex flex-col w-full min-h-16 py-2 px-6 rounded-2xl  bg-[#bbbbbb4d] space-y-4">
+    <div className="flex flex-col w-full min-h-16 py-6 px-6 rounded-2xl  bg-[#bbbbbb4d] space-y-4">
       {isLoading ? (
         <Fallback />
       ) : error ? (
-        <div className="flex flex-col justify-center items-center text-red-500">
+        <div className="flex flex-col justify-center items-center text-red-500 relative">
           Error: {error instanceof Error ? error.message : "Error desconocido"}
+          <BotonBorrar onClick={BorrarEchufe} />
         </div>
       ) : (
-        <div className="flex flex-row">
+        <div className="flex flex-row relative">
           <button
             className={
 							`${data?.contenido.estado ? "bg-red-400 hover:bg-red-500" : "bg-green-400 hover:bg-green-500"} 
@@ -40,6 +49,7 @@ const EnchufeCarta = ({ codigo }: EnchufeCartaProps) => {
             <p>Tiempo en uso: 123 horas</p>
             <p>Consumo: {data?.contenido.voltaje}W</p>
           </div>
+          <BotonBorrar onClick={BorrarEchufe} />
         </div>
       )}
     </div>

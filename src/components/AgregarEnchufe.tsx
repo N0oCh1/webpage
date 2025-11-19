@@ -1,17 +1,24 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
-import { type FormData, formSchema } from "../types";
+import {  type FormData, formSchema } from "../types";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 const AgregarEnchufe = () => {
   const [agregar, setAgregar] = useState(false);
+  const [code, setCode] = useState<string[]>(JSON.parse(localStorage.getItem("code") || "[]"));
   const {control, handleSubmit, formState:{errors}} = useForm<FormData>(
     {resolver: zodResolver(formSchema)}
   );
   function onSubmit(data: any) {
     console.log(data);
+    setCode((prevCodes)=> {
+      const newCodes = [...prevCodes, data.code];
+      localStorage.setItem("code", JSON.stringify(newCodes));
+      return newCodes;
+    });
     setAgregar(false);
+    window.location.reload();
   };
 
   return (
