@@ -1,8 +1,9 @@
 import { useState } from "react";
-import useApi from "../hook/useApi";
+//import useApi from "../hook/useApi";
 import { Controller, useForm } from "react-hook-form";
 import { AiFillEdit } from "react-icons/ai";
 import { IoIosSave } from "react-icons/io";
+import useMQTT from "../hook/useMQTT";
 
 interface CampoEditableProps {
   nombreEnchufe: string;
@@ -11,11 +12,13 @@ interface CampoEditableProps {
 
 const CampoEditable = ({ nombreEnchufe, code }: CampoEditableProps) => {  
   const [editar, setEditar] = useState<boolean>(false);
-  const { cambiarNombre } = useApi(code)
+  //const { cambiarNombre } = useApi(code)
+  const { CambiarNombre } = useMQTT(code);
+
   const {handleSubmit, control} = useForm()
 
   function handleGuardar(data: any) {
-    cambiarNombre?.(data.nombreEnchufe);
+   CambiarNombre(data.nombreEnchufe);
     setEditar(false);
   }
   return(

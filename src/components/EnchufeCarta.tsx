@@ -4,6 +4,7 @@ import CampoEditable from "./CampoEditable";
 import { FaPowerOff } from "react-icons/fa";
 import { MdPowerOff } from "react-icons/md";
 import BotonBorrar from "./BotonBorrar";
+import useMQTT from "../hook/useMQTT";
 
 interface EnchufeCartaProps {
   codigo: string;
@@ -11,8 +12,9 @@ interface EnchufeCartaProps {
 
 const EnchufeCarta = ({ codigo }: EnchufeCartaProps) => {
   if (!codigo) return null;
-  const { data, isLoading, error, botonEncenderApagar } = useApi(codigo);
-	
+  //const { data, isLoading, error, botonEncenderApagar } = useApi(codigo);
+  const { nombre, estado, watts, BotonSwitch, error, isLoading, codigoAcceso } = useMQTT(codigo);
+  
   function BorrarEchufe () {
     const codes :string[] = JSON.parse(localStorage.getItem("code") || "[]");
     const nuevosCodes = codes.filter(c => c !== codigo);
@@ -33,21 +35,20 @@ const EnchufeCarta = ({ codigo }: EnchufeCartaProps) => {
         <div className="flex flex-row relative">
           <button
             className={
-							`${data?.contenido.estado ? "bg-red-400 hover:bg-red-500" : "bg-green-400 hover:bg-green-500"} 
+							`${estado === "1" ? "bg-red-400 hover:bg-red-500" : "bg-green-400 hover:bg-green-500"} 
 							cursor-pointer text-white font-bold py-2 px-4 rounded w-40 text-center flex justify-center items-center mr-6`
 						}
-            onClick={botonEncenderApagar}
+            onClick={BotonSwitch}
           >
-						{data?.contenido.estado ? <MdPowerOff size={50} /> : <FaPowerOff size={50} />}
+						{estado === "1" ? <MdPowerOff size={50} /> : <FaPowerOff size={50} />}
             
           </button>
           <div className="flex flex-col justify-center w-full">
-						<CampoEditable nombreEnchufe={data?.contenido.nombre||" "} code={codigo} />
-            
-						<p>Código: {data?.contenido.codigoAcceso}</p>
-            <p>Estado: {data?.contenido.estado ? "Encendido" : "Apagado"}</p>
+						<CampoEditable nombreEnchufe={nombre} code={codigo} />
+						<p>Código: {codigoAcceso}</p>
+            <p>Estado: {estado === "1" ? "Encendido" : "Apagado"}</p>
             <p>Tiempo en uso: 123 horas</p>
-            <p>Consumo: {data?.contenido.voltaje}W</p>
+            <p>Consumo: {watts}W</p>
           </div>
           <BotonBorrar onClick={BorrarEchufe} />
         </div>
